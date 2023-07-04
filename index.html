@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>IP Camera Stream</title>
+  </head>
+  <body>
+    <h1>IP Camera Stream</h1>
+    <video id="video" autoplay></video>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.1/socket.io.js"></script>
+    <script>
+      const socket = io();
+
+      // Receive video stream from the server
+      socket.on('video', (data) => {
+        const video = document.getElementById('video');
+        video.src = URL.createObjectURL(new Blob([data.buffer], { type: 'video/mp2t' }));
+      });
+    </script>
+  </body>
+</html>
